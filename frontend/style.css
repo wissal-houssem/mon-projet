@@ -1,0 +1,557 @@
+body{
+    margin: 0;
+    font-family: 'Arial',sans-serif;
+    background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+     url(bgbg.jpg) no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;    
+}
+
+header{
+    text-align: center;
+    padding: 50px 20px 20 px 20;
+}
+header h1{
+    font-size: 50px;
+    margin: 0;
+    color: #d5acf4;
+    text-shadow: 2px 2px 6px rgba(225, 218, 221, 0.7);
+    
+}
+header h4{
+    font-size: 20px;
+    margin-top: 10px;
+    color:#d5acf4 ;
+    text-shadow: 2px 2px 6px rgba(225, 218, 221, 0.7);
+}
+nav ul{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 12px 0;
+    margin: 20px 0;
+    background-color: #d5acf4;
+    border-radius: 10px;
+}
+nav ul li a{
+    text-decoration: none;
+    color:#000000;
+    font-weight: bold;
+    padding: 10px 18px;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+nav ul li a:hover{
+    background-color: #8349b5;
+    color: black;
+}
+.description{
+    max-width: 800px;
+    margin: 60px auto;
+    text-align: center;
+    font-size: 22px;
+    line-height: 1.5;
+    background-color: #d5acf4;
+    padding: 25px;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+}
+.contact{
+    text-align: center;
+    margin: 50px auto 30px auto;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    font-weight:bold ;
+    display: inline-block;
+    padding: 30px 50px;
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.contact p{
+    margin: 5px 0;
+    
+}
+.localisation{
+    text-align: center;
+    margin: auto;
+}
+.localisation h3{
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: black;
+    background-color: #d5acf4;
+    border-radius: 5px;
+}
+.localisation iframe{
+    width: 20%;
+    max-width: 600px;
+    height: 150px;
+    border: none;
+    border-radius: 10px;
+    
+}
+h4{
+    
+    font-size: 30px;
+    margin: 0;
+    color: #d5acf4;
+    text-shadow: 2px 2px 6px rgba(225, 218, 221, 0.7);
+    text-align: center;
+    
+}
+
+.produits{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 20px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.produit{
+    background-color: #d5acf4;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s,
+    box-shadow 0.3s;
+    overflow: visible;
+
+    
+}
+.produit:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+.produit img{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.produit h3{
+    margin: 5px 0;
+    color: #333;
+}
+.produit p{
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+.produit .prix{
+    font-weight: bold;
+    color: #7b3fe4;
+}
+.acheter{
+    
+    background-color:#c95bee;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: #0e0311;
+    font-size: 16px;
+    transition: background-color 0.3s,transform 0.2s;
+}
+.acheter:hover {
+    background-color: #5750d4;
+    transform: scale(1.05);
+}
+main{
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+main h2{
+    font-size: 30px;
+    margin: 0;
+    color: #d5acf4;
+    text-shadow: 2px 2px 6px rgba(225, 218, 221, 0.7);
+    text-align: center;
+    
+}
+.panier-produit{
+    background-color: #d5acf4;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s,box-shadow 0.3s;
+    color: #5f2dbd;
+}
+.panier-produit:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+.panier-produit img{
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+
+.panier-produit .prix{
+    font-weight: bold;
+    color: #7b3fe4;
+    
+}
+.supprimer{
+    background-color: #e74c3c;
+    color:black;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-left: auto;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.supprimer:hover{
+    background-color: #c0392b;
+}
+.total{
+    background-color: white;
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 30px;
+    
+}
+.total span{
+font-weight: bold;
+font-size: 16px;
+margin-right: 20px;
+color: #7b3fe4;
+
+}
+
+.total .continuer{
+    background-color: #7b3fe4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s,transform 0.2s;
+    
+   
+}
+.total .continuer:hover{
+    background-color: #5f2dbd;
+    transform: translateY(-2px);
+}
+.apropos-container{
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+.apropos-section{
+    background:rgba(255,255,255,0.08);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+.apropos-section p{
+    line-height: 1.8;
+    font-size: 16px;
+}
+.apropos-section ul{
+    list-style: none;
+    padding-left: 0;
+}
+.apropos-section ul li{
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+.footer{
+    text-align: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.3);
+    margin-top: 40px;
+    font-size: 14px;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.produit {
+    animation: slideDown 0.6s ease forwards;
+    opacity: 0;
+}
+
+
+.produit:nth-child(1) { animation-delay: 0.1s; }
+.produit:nth-child(2) { animation-delay: 0.2s; }
+.produit:nth-child(3) { animation-delay: 0.3s; }
+.produit:nth-child(4) { animation-delay: 0.4s; }
+.produit:nth-child(5) { animation-delay: 0.5s; }
+.produit:nth-child(6) { animation-delay: 0.6s; }
+.produit:nth-child(7) { animation-delay: 0.7s; }
+.produit:nth-child(8) { animation-delay: 0.8s; }
+.produit:nth-child(9) { animation-delay: 0.9s; }
+.produit:nth-child(10) { animation-delay: 1.0s; }
+.produit:nth-child(11) { animation-delay: 1.1s; }
+.produit:nth-child(12) { animation-delay: 1.2s; }
+/* إصلاح تأثير hover - يطبق بعد انتهاء الأنيميشن */
+.produit {
+    transition: transform 0.3s ease, box-shadow 0.3s ease ;
+}
+
+.produit:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
+    z-index: 1;
+    position: relative;
+}
+
+/* إصلاح hover للأزرار */
+.acheter:hover {
+    background-color: #5750d4 !important;
+    transform: scale(1.09) !important;
+}
+/* ===== تأثير تكبير الصور داخل البطاقات ===== */
+.produit {
+    overflow: hidden; /* هذا السطر يمنع خروج الصورة */
+    position: relative;
+}
+
+.produit img {
+    transition: transform 0.5s ease;
+    transform-origin: center center;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.produit:hover img {
+    transform: scale(1.08);
+}
+
+/* ===== تأثير لطيف للحدود ===== */
+.produit img {
+    border: 3px solid transparent;
+    transition: all 0.4s ease;
+}
+
+.produit:hover img {
+    border-color: rgba(123, 63, 228, 0.3);
+    box-shadow: 0 5px 15px rgba(123, 63, 228, 0.2);
+}
+
+/* ===== تأثير صور السلة ===== */
+.panier-produit {
+    overflow: hidden; /* منع خروج الصورة */
+}
+
+.panier-produit img {
+    transition: transform 0.4s ease;
+    transform-origin: center center;
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.panier-produit:hover img {
+    transform: scale(1.1);
+}
+
+/* ===== إطار للصور عند التكبير ===== */
+.produit:hover img,
+.panier-produit:hover img {
+    box-shadow: 0 0 0 5px rgba(213, 172, 244, 0.1);
+}
+
+/* ===== STYLES DU FORMULAIRE DE CONTACT ===== */
+.contact-form-section {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 20px;
+}
+
+.form-container {
+    background: rgba(213, 172, 244, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(123, 63, 228, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-container h2 {
+    color: #d5acf4;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 32px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.form-container p {
+    text-align: center;
+    color: #e0e0e0;
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    border: 2px solid rgba(213, 172, 244, 0.3);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e3d3e6;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    outline: none;
+    min-height: 50px;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #7b3fe4;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(123, 63, 228, 0.3);
+}
+
+.form-group select {
+    appearance: none;
+    cursor: pointer;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+    
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #7b3fe4, #c95bee);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(123, 63, 228, 0.4);
+    background: linear-gradient(135deg, #6a35cc, #b54fd6);
+}
+
+.send-icon {
+    font-size: 20px;
+    animation: float 2s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.form-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    display: none;
+}
+
+.form-message.success {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+    display: block;
+}
+
+.form-message.error {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+    display: block;
+}
+.from-group select option{
+    background: #8e5db8;
+}
+
+/* تلوين خيارات القائمة */
+.form-group select option {
+    background: #f8f0ff; /* خلفية بنفسجية فاتحة */
+    color: #000000;      /* نص أسود */
+    padding: 10px;
+}
+
+/* كل خيار بلون */
+.form-group select option[value=""] {
+    background: #a57de0;
+    color: white;
+}
+
+.form-group select option[value="question"] {
+    background: #a57de0;
+    color: white;
+}
+
+.form-group select option[value="commande"] {
+    background: #a57de0;
+    color: white;
+}
+
+.form-group select option[value="technique"] {
+    background: #a57de0;
+    color: white;
+}
+
+.form-group select option[value="autre"] {
+    background:#a57de0;
+    color: white;
+}

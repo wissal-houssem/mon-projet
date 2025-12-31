@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>enregistrer les commandes Api test</h2>
+    <button onclick="testSaveOrder()">Test</button>
+    
+    <script>
+    function testSaveOrder() {
+        const testData = {
+            nom_client: "Test Client",
+            telephone: "0551234567",
+            adresse: "Alger, Algeria",
+            produits: [
+                {nom: "HP Pavilion14", prix: 120000, quantite: 1}
+            ],
+            total: 120000
+        };
+        
+        fetch('save_order.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(testData)
+        })
+        .then(r => r.json())
+        .then(data => {
+            if(data.success) {
+                alert(` tres bien: ${data.order_id}`);
+            } else {
+                alert(`no no: ${data.error}`);
+            }
+        });
+    }
+    </script>
+</body>
+</html>
