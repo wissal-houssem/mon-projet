@@ -1,18 +1,12 @@
-// ============================================
-// GESTION DU PANIER (CART MANAGEMENT)
-// ============================================
-
 let panier = JSON.parse(localStorage.getItem('panier_pc_tech')) || [];
 
 function sauvegarderPanier() {
     localStorage.setItem('panier_pc_tech', JSON.stringify(panier));
     mettreAJourCompteurPanier();
 }
-
 function ajouterAuPanier(nom, prix, image) {
     const produitExistant = panier.find(item => item.nom === nom);
-    
-    if (produitExistant) {
+   if (produitExistant) {
         produitExistant.quantite += 1;
     } else {
         panier.push({
@@ -22,11 +16,9 @@ function ajouterAuPanier(nom, prix, image) {
             quantite: 1
         });
     }
-    
     sauvegarderPanier();
     afficherNotification('✅ ' + nom + ' ajouté au panier');
 }
-
 function retirerDuPanier(nom) {
     panier = panier.filter(item => item.nom !== nom);
     sauvegarderPanier();
@@ -34,13 +26,11 @@ function retirerDuPanier(nom) {
         afficherPanier();
     }
 }
-
 function modifierQuantite(nom, nouvelleQuantite) {
     if (nouvelleQuantite < 1) {
         retirerDuPanier(nom);
         return;
-    }
-    
+    }    
     const produit = panier.find(item => item.nom === nom);
     if (produit) {
         produit.quantite = nouvelleQuantite;
@@ -50,32 +40,22 @@ function modifierQuantite(nom, nouvelleQuantite) {
         }
     }
 }
-
 function calculerTotal() {
     return panier.reduce((total, item) => {
         return total + (item.prix * item.quantite);
     }, 0);
 }
-
 function formaterPrix(prix) {
     return prix.toLocaleString('fr-DZ') + ' DZD';
 }
-
-// ============================================
-// AFFICHAGE DU PANIER
-// ============================================
 
 function afficherPanier() {
     const container = document.getElementById('panier-container');
     const totalSection = document.querySelector('.total');
     
     if (!container || !totalSection) return;
-    
-    // 1. تنظيف السلة فقط (لا تلمس .total)
     const elementsProduits = container.querySelectorAll('.panier-produit, .panier-vide, p');
     elementsProduits.forEach(el => el.remove());
-    
-    // 2. إذا السلة فارغة
     if (panier.length === 0) {
         const messageVide = document.createElement('div');
         messageVide.className = 'panier-vide';
@@ -87,7 +67,6 @@ function afficherPanier() {
             margin: 20px 0;
             color: #000;
         `;
-        
         messageVide.innerHTML = `
             <p style="font-size: 18px; margin-bottom: 20px;">Votre panier est vide</p>
             <a href="produits.php" style="
@@ -100,21 +79,14 @@ function afficherPanier() {
                 display: inline-block;
             ">Voir nos produits</a>
         `;
-        
-        container.appendChild(messageVide);
+          container.appendChild(messageVide);
         totalSection.style.display = 'none';
         return;
     }
-    
-    // 3. إظهار قسم المجموع
     totalSection.style.display = 'flex';
-    
-    
-    // 4. عرض المنتجات
     panier.forEach(item => {
         const produitDiv = document.createElement('div');
         produitDiv.className = 'panier-produit';
-        
         produitDiv.innerHTML = `
             <img src="${item.image}" alt="${item.nom}">
             <div style="flex-grow: 1;">
@@ -132,10 +104,8 @@ function afficherPanier() {
                         border-radius: 50%;
                         cursor: pointer;
                         font-weight: bold;
-                    ">-</button>
-                    
-                    <span style="font-weight: bold;">${item.quantite}</span>
-                    
+                    ">-</button>  
+                    <span style="font-weight: bold;">${item.quantite}</span>  
                     <button class="btn-plus" data-nom="${item.nom}" style="
                         background-color: #c95bee;
                         color: black;
@@ -159,11 +129,8 @@ function afficherPanier() {
                 margin-left: 10px;
             ">Supprimer</button>
        ` ;
-        
         container.appendChild(produitDiv);
     });
-    
-    // 5. تحديث المجموع الكلي
     const prixTotal = totalSection.querySelector('.prix-total');
     if (prixTotal) {
         prixTotal.textContent = formaterPrix(calculerTotal());
@@ -171,23 +138,13 @@ function afficherPanier() {
         prixTotal.style.fontWeight = 'bold';
     }
 }
-
-// ============================================
-// COMPTEUR PANIER
-// ============================================
-
 function mettreAJourCompteurPanier() {
     const totalItems = panier.reduce((total, item) => total + item.quantite, 0);
-    
-    // Mettre à jour le compteur dans la navigation
     const liensPanier = document.querySelectorAll('a[href="panier.php"]');
     
     liensPanier.forEach(lien => {
-        // Supprimer l'ancien compteur
         const ancienCompteur = lien.querySelector('.compteur-panier');
         if (ancienCompteur) ancienCompteur.remove();
-        
-        // Ajouter nouveau compteur si nécessaire
         if (totalItems > 0) {
             const compteur = document.createElement('span');
             compteur.className = 'compteur-panier';
@@ -205,22 +162,12 @@ function mettreAJourCompteurPanier() {
         }
     });
 }
-
-// ============================================
-// NOTIFICATIONS
-// ============================================
-
-function afficherNotification(message) {
-    // Supprimer les anciennes notifications
+function afficherNotification(message) { 
     const anciennesNotifs = document.querySelectorAll('.notification-pc-tech');
     anciennesNotifs.forEach(notif => notif.remove());
-    
-    // Créer la notification
     const notification = document.createElement('div');
     notification.className = 'notification-pc-tech';
     notification.textContent = message;
-    
-    // Style selon votre design
     notification.style.cssText = `
         position: fixed;
         top: 20px;
@@ -236,8 +183,6 @@ function afficherNotification(message) {
         animation: slideInNotif 0.3s ease;
         max-width: 300px;
    ` ;
-    
-    // Ajouter l'animation
     const style = document.createElement('style');
     style.textContent = `
         @keyframes slideInNotif {
@@ -250,10 +195,7 @@ function afficherNotification(message) {
         }
     `;
     document.head.appendChild(style);
-    
-    document.body.appendChild(notification);
-    
-    // Supprimer après 3 secondes
+  document.body.appendChild(notification);
     setTimeout(() => {
         notification.style.animation = 'slideOutNotif 0.3s ease';
         setTimeout(() => {
@@ -263,28 +205,18 @@ function afficherNotification(message) {
         }, 300);
     }, 3000);
 }
-
-// ============================================
-// GESTION DES PRODUITS
-// ============================================
-
 function initialiserProduits() {
     const boutonsAcheter = document.querySelectorAll('.produit .acheter');
-    
     boutonsAcheter.forEach(bouton => {
         bouton.addEventListener('click', function() {
             const produitDiv = this.closest('.produit');
             const nom = produitDiv.querySelector('h3').textContent;
             const prixText = produitDiv.querySelector('.prix').textContent;
             const image = produitDiv.querySelector('img').src;
-            
-            // Extraire le prix (supporte le format "120 000 DZD")
             const prixMatch = prixText.match(/[\d\s]+/);
             if (prixMatch) {
                 const prix = parseInt(prixMatch[0].replace(/\s/g, ''));
                 ajouterAuPanier(nom, prix, image);
-                
-                // Effet visuel sur le bouton
                 this.style.backgroundColor = '#5750d4';
                 this.textContent = '✓ Ajouté';
                 setTimeout(() => {
@@ -295,15 +227,8 @@ function initialiserProduits() {
         });
     });
 }
-
-// ============================================
-// GESTION DES ÉVÉNEMENTS
-// ============================================
-
 function initialiserEvenements() {
-    // Gestion des clics sur le panier
     document.addEventListener('click', function(e) {
-        // Bouton +
         if (e.target.classList.contains('btn-plus')) {
             const nom = e.target.dataset.nom;
             const produit = panier.find(item => item.nom === nom);
@@ -312,8 +237,6 @@ function initialiserEvenements() {
                 afficherNotification('Quantité augmentée pour ' + nom);
             }
         }
-        
-        // Bouton -
         if (e.target.classList.contains('btn-moins')) {
             const nom = e.target.dataset.nom;
             const produit = panier.find(item => item.nom === nom);
@@ -323,9 +246,7 @@ function initialiserEvenements() {
             } else if (produit) {
                 retirerDuPanier(nom);
             }
-        }
-        
-        // Bouton Supprimer
+        }   
         if (e.target.classList.contains('btn-supprimer')) {
             const nom = e.target.dataset.nom;
             if (confirm(`Supprimer "${nom}" du panier?`)) {
@@ -333,30 +254,20 @@ function initialiserEvenements() {
                 afficherNotification('🗑️ ' + nom + ' supprimé');
             }
         }
-        
-        // Bouton Continuer
         if (e.target.classList.contains('continuer')) {
             if (panier.length === 0) {
                 alert('Votre panier est vide. Ajoutez des produits avant de continuer.');
                 return;
             }
-            
             const total = calculerTotal();
             if (confirm(`Confirmer la commande pour ${formaterPrix(total)}?\n\nVous serez contacté pour finaliser la livraison.`)) {
                 alert('✅ Commande confirmée! Merci pour votre confiance.\nNous vous contacterons dans les plus brefs délais.');
-                
-                // Vider le panier après confirmation
                 panier = [];
                 sauvegarderPanier();
                 afficherPanier();
-                
-                // Redirection (optionnelle)
-                // window.location.href = 'index.html';
             }
         }
     });
-    
-    // Ajouter bouton "Vider le panier" si on est sur la page panier
     if (document.getElementById('panier-container') && panier.length > 0) {
         const totalSection = document.querySelector('.total');
         if (totalSection && !document.querySelector('.btn-vider')) {
@@ -394,46 +305,33 @@ function initialiserEvenements() {
         }
     }
 }
-
-// ============================================
-// FORMULAIRE DE CONTACT (si ajouté plus tard)
-// ============================================
-
 function validerFormulaireContact() {
     const formulaire = document.querySelector('form');
     if (!formulaire) return;
-    
-    formulaire.addEventListener('submit', function(e) {
+   formulaire.addEventListener('submit', function(e) {
         e.preventDefault();
-        
         const nom = this.querySelector('input[name="nom"]');
         const email = this.querySelector('input[name="email"]');
         const message = this.querySelector('textarea[name="message"]');
-        
-        let isValid = true;
-        
-        // Validation basique
+           let isValid = true;
         if (nom && nom.value.trim() === '') {
             isValid = false;
             nom.style.borderColor = '#e74c3c';
         } else if (nom) {
             nom.style.borderColor = '#7b3fe4';
         }
-        
         if (email && !email.value.includes('@')) {
             isValid = false;
             email.style.borderColor = '#e74c3c';
         } else if (email) {
             email.style.borderColor = '#7b3fe4';
         }
-        
-        if (message && message.value.trim() === '') {
+         if (message && message.value.trim() === '') {
             isValid = false;
             message.style.borderColor = '#e74c3c';
         } else if (message) {
             message.style.borderColor = '#7b3fe4';
         }
-        
         if (isValid) {
             afficherNotification('📧 Message envoyé avec succès!');
             this.reset();
@@ -442,39 +340,19 @@ function validerFormulaireContact() {
         }
     });
 }
-
-// ============================================
-// INITIALISATION
-// ============================================
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Pc PortableTech - JavaScript chargé');
-    
-    // Initialiser les produits sur la page produits.html
     if (document.querySelector('.produits')) {
         initialiserProduits();
     }
-    
-    // Afficher le panier sur la page panier.html
     if (document.getElementById('panier-container')) {
         afficherPanier();
     }
-    
-    // Initialiser les événements
     initialiserEvenements();
-    
-    // Mettre à jour le compteur
     mettreAJourCompteurPanier();
-    
-    // Validation formulaire (si existant)
     validerFormulaireContact();
  
 });
-
-// ============================================
-// FONCTIONS UTILITAIRES
-// ============================================
-
-// Exposer certaines fonctions globalement (pour la console debug)
 window.monPanier = {
     getPanier: () => panier,
     viderPanier: () => {
@@ -487,52 +365,34 @@ window.monPanier = {
         ajouterAuPanier(nom, prix, '');
     }
 };
-// ============================================
-// GESTION DU FORMULAIRE DE CONTACT
-// ============================================
-
 function initialiserFormulaireContact() {
     const formulaire = document.getElementById('contactForm');
     const messageDiv = document.getElementById('formMessage');
-    
-    if (!formulaire) return;
-    
-    formulaire.addEventListener('submit', function(e) {
+      if (!formulaire) return;
+      formulaire.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Désactiver le bouton pendant l'envoi
         const submitBtn = this.querySelector('.submit-btn');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = 'Envoi en cours...';
         submitBtn.disabled = true;
-        
-        // Récupérer les données du formulaire
         const formData = new FormData(this);
-        
-        // Envoyer avec fetch (AJAX)
         fetch('contact.php', {
             method: 'POST',
             body: formData
         })
         .then(response => response.text())
         .then(data => {
-            // Analyser la réponse
             const [type, message] = data.split(':');
-            
-            if (type === 'success') {
+              if (type === 'success') {
                 messageDiv.className = 'form-message success';
                 messageDiv.textContent = message;
-                formulaire.reset(); // Réinitialiser le formulaire
+                formulaire.reset(); 
             } else {
                 messageDiv.className = 'form-message error';
                 messageDiv.textContent = message;
             }
-            
-            // Réactiver le bouton
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
-            
-            // Cacher le message après 5 secondes
             setTimeout(() => {
                 messageDiv.style.opacity = '0';
                 setTimeout(() => {
@@ -549,25 +409,14 @@ function initialiserFormulaireContact() {
         });
     });
 }
-
-// Ajouter à l'initialisation
 document.addEventListener('DOMContentLoaded', function() {
     initialiserFormulaireContact();
 });
-// ============================================
-// ENREGISTRER COMMANDE
-// ============================================
-
-// ============================================
-// ENREGISTRER COMMANDE (نسخة معدلة)
-// ============================================
-
 function enregistrerCommande(nomClient, telephone, adresse) {
     if (!nomClient || !telephone || !adresse) {
         afficherNotification('❌ Veuillez remplir tous les champs');
         return false;
     }
-
     const commandeData = {
         nom_client: nomClient,
         telephone: telephone,
@@ -575,16 +424,10 @@ function enregistrerCommande(nomClient, telephone, adresse) {
         produits: panier,
         total: calculerTotal()
     };
-
-    console.log('Données à envoyer:', commandeData); // للتتبع
-    
-    // إظهار مؤشر التحميل
+  console.log('Données à envoyer:', commandeData); 
     afficherNotification('📦 Enregistrement de la commande...');
-
-    // إصلاح المسار - تأكد من أنه صحيح
-    const url = '../backend/save_order.php';  // جرب هذا المسار
-    
-    fetch(url, {
+    const url = '../backend/save_order.php';  
+ fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -603,14 +446,10 @@ function enregistrerCommande(nomClient, telephone, adresse) {
         console.log('Réponse du serveur:', data);
         if (data.success) {
             afficherNotification(`✅ Commande #${data.order_id} enregistrée!`);
-            
-            // إظهار تفاصيل الطلب
             alert(`🎉 Commande confirmée!
 Numéro: #${data.order_id}
 Total: ${formaterPrix(commandeData.total)}
 Nous vous contacterons au ${telephone} pour la livraison.`);
-            
-            // تفريغ السلة
             panier = [];
             sauvegarderPanier();
             afficherPanier();
@@ -623,15 +462,9 @@ Nous vous contacterons au ${telephone} pour la livraison.`);
         afficherNotification('❌ Erreur de connexion: ' + error.message);
     });
 }
-// ============================================
-// AJOUTER UN FORMULAIRE POUR LA COMMANDE
-// ============================================
-
 function ajouterFormulaireCommande() {
     const panierContainer = document.getElementById('panier-container');
     if (!panierContainer) return;
-    
-    // إضافة زر "Passer la commande"
     const btnCommander = document.createElement('button');
     btnCommander.id = 'btn-commander';
     btnCommander.textContent = 'Passer la commande';
@@ -651,28 +484,17 @@ function ajouterFormulaireCommande() {
     
     btnCommander.onmouseover = () => btnCommander.style.transform = 'translateY(-3px)';
     btnCommander.onmouseout = () => btnCommander.style.transform = 'translateY(0)';
-    
-    btnCommander.onclick = () => {
+     btnCommander.onclick = () => {
         afficherModalCommande();
     };
-    
-    // إضافة بعد قسم المجموع
     const totalSection = document.querySelector('.total');
     if (totalSection) {
         totalSection.parentNode.insertBefore(btnCommander, totalSection.nextSibling);
     }
 }
-
-// ============================================
-// MODAL POUR LA COMMANDE
-// ============================================
-
 function afficherModalCommande() {
-    // إزالة أي مودال موجود
     const ancienModal = document.querySelector('.modal-commande');
     if (ancienModal) ancienModal.remove();
-    
-    // إنشاء المودال
     const modal = document.createElement('div');
     modal.className = 'modal-commande';
     modal.style.cssText = `
@@ -688,8 +510,6 @@ function afficherModalCommande() {
         z-index: 1000;
         animation: fadeIn 0.3s;
     `;
-    
-    // محتوى المودال
     modal.innerHTML = `
         <div style="
             background: linear-gradient(135deg, #1a1a2e, #16213e);
@@ -703,22 +523,18 @@ function afficherModalCommande() {
             <h2 style="color: #d5acf4; text-align: center; margin-bottom: 20px;">
                 Informations de livraison
             </h2>
-            
-            <div style="margin-bottom: 20px;">
+              <div style="margin-bottom: 20px;">
                 <input type="text" id="nom-client" placeholder="Votre nom complet" 
                     style="width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none;">
-            </div>
-            
+            </div>   
             <div style="margin-bottom: 20px;">
                 <input type="tel" id="telephone" placeholder="Numéro de téléphone" 
                     style="width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none;">
-            </div>
-            
+            </div> 
             <div style="margin-bottom: 30px;">
                 <textarea id="adresse" placeholder="Adresse de livraison complète" rows="4"
                     style="width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none;"></textarea>
-            </div>
-            
+            </div>    
             <div style="display: flex; gap: 15px; justify-content: center;">
                 <button id="btn-confirmer" style="
                     background: linear-gradient(135deg, #4CAF50, #2E7D32);
@@ -729,7 +545,6 @@ function afficherModalCommande() {
                     cursor: pointer;
                     font-weight: bold;
                 ">Confirmer</button>
-                
                 <button id="btn-annuler" style="
                     background: #e74c3c;
                     color: white;
@@ -741,11 +556,8 @@ function afficherModalCommande() {
                 ">Annuler</button>
             </div>
         </div>
-    `;
-    
+    `;  
     document.body.appendChild(modal);
-    
-    // إضافة الأنيميشن
     const style = document.createElement('style');
     style.textContent = `
         @keyframes fadeIn {
@@ -754,13 +566,10 @@ function afficherModalCommande() {
         }
     `;
     document.head.appendChild(style);
-    
-    // الأحداث
     document.getElementById('btn-confirmer').onclick = () => {
         const nomClient = document.getElementById('nom-client').value;
         const telephone = document.getElementById('telephone').value;
         const adresse = document.getElementById('adresse').value;
-        
         if (nomClient && telephone && adresse) {
             enregistrerCommande(nomClient, telephone, adresse);
             modal.remove();
@@ -768,28 +577,16 @@ function afficherModalCommande() {
             afficherNotification('❌ Veuillez remplir tous les champs');
         }
     };
-    
     document.getElementById('btn-annuler').onclick = () => {
         modal.remove();
     };
-    
-    // إغلاق بالنقر خارج المودال
     modal.onclick = (e) => {
         if (e.target === modal) {
             modal.remove();
         }
     };
 }
-
-// ============================================
-// MODIFIER INITIALISATION
-// ============================================
-
-// في نهاية DOMContentLoaded، أضف:
 document.addEventListener('DOMContentLoaded', function() {
-    // ... الكود الحالي ...
-    
-    // إضافة زر "Passer la commande" إذا كانت الصفحة panier
     if (document.getElementById('panier-container') && panier.length > 0) {
         ajouterFormulaireCommande();
     }
