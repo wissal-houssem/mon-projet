@@ -1,5 +1,5 @@
 <?php 
-// 1. إضافة كود الاتصال بقاعدة البيانات في أول السطر
+
 include '../backend/config.php'; 
 ?>
 <!DOCTYPE html>
